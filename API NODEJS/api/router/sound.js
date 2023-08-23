@@ -3,7 +3,7 @@ const router = express.Router();
 
 router.get('/',(req,res,next) =>{
 
-const player = require('play-sound')({ player: null });
+const player = require('play-sound')({ player: 'mpg123' });
 const soundFilePath = './Sound/hello.mp3'; 
 
 player.play(soundFilePath, (err) => {
@@ -14,7 +14,7 @@ player.play(soundFilePath, (err) => {
     } else {
       res.status(200).json({
                 message: 'đang chạy'
-            })
+            });
     }
 });
 
