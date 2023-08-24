@@ -9,7 +9,7 @@ const soundFilePath = './Sound/hello.mp3';
 player.play(soundFilePath, (err) => {
     if (err) {
       res.status(401).json({
-                 message: 'lõi'
+                 message: 'lỗi'
             });
     } else {
       res.status(200).json({
@@ -23,7 +23,7 @@ player.play(soundFilePath, (err) => {
     // play.play(soundFilePath, (err) => {
     //   if (err) {
     //     res.status(401).json({
-    //         message: 'lõi'
+    //         message: 'lỗi'
     //     });
     //   } else {
     //     res.status(200).json({

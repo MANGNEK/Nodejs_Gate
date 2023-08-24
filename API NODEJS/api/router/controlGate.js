@@ -2,10 +2,10 @@ const express = require('express');
 const router = express.Router();
 let lockgatein = false;
 let lockgateout = false;
-const Gpio = require('onoff').Gpio;
+var Gpio = require('onoff').Gpio;
 
 //Chân GPIO 22
- const gpio22 = new Gpio(22, 'out');
+const gpio22 = new Gpio(22, 'out');
 
 // Chân GPIO 18
 const gpio18 = new Gpio(18, 'out');
@@ -13,7 +13,7 @@ const gpio18 = new Gpio(18, 'out');
     router.get('/openin',(req,res,next) => {
         if(lockgatein == false)
         {
-            gpio22.writeSync(1);
+        gpio22.writeSync(1);
             res.status(200).json({
                 message: 'mở cổng vào'
         });
