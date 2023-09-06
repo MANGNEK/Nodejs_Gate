@@ -3,33 +3,39 @@ const router = express.Router();
 
 router.get('/',(req,res,next) =>{
 
-const player = require('play-sound')({ player: 'mpg123' });
-const soundFilePath = './Sound/hello.mp3'; 
+  const { exec } = require('child_process');
 
-player.play(soundFilePath, (err) => {
-    if (err) {
-      res.status(401).json({
-                 message: 'lỗi'
-            });
-    } else {
-      res.status(200).json({
-                message: 'đang chạy'
-            });
+function playMP3WithVLC(filePath) {
+  const command = `vlc "${filePath}" --play-and-exit in --intf dummy`;
+
+  exec(command, (error, stdout, stderr) => {
+    if (error) {
+      console.error(`Error executing VLC: ${error}`);
     }
-});
+  });
+}
 
-    // const play = require('play-sound')({player: null});
-    // const soundFilePath = './Sound/hello.mp3'; 
-    // play.play(soundFilePath, (err) => {
-    //   if (err) {
-    //     res.status(401).json({
-    //         message: 'lỗi'
-    //     });
-    //   } else {
-    //     res.status(200).json({
-    //         message: 'đang chạy'
-    //     })
-    //   }
-    // }); 
+const mp3FilePath = "./Sound/Tambiet.mp3"; // Đường dẫn tới file mp3 bạn muốn chạybooj aam
+playMP3WithVLC(mp3FilePath);
+res.status(200).json({
+          message: 'đang chạy'
+       })
+
+});
+router.get('/serial',(req,res,next) =>{
+  const SerialPort = require('serialport');
+
+// Liệt kê các cổng serial đang kết nối
+  SerialPort.list().then(ports => {
+  console.log('Các cổng serial đang kết nối:');
+  ports.forEach(port => {
+    console.log(`${port.path} - ${port.manufacturer || 'Không rõ'}`);
+  });
+}).catch(err => {
+  console.error('Lỗi khi liệt kê cổng serial:', err);
+});
+  res.status(200).json({
+    message: 'đang chạy'
+ });
 });
 module.exports = router;
